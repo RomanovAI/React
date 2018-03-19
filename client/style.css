@@ -1,0 +1,42 @@
+body{
+    background-color: aliceblue;
+}
+
+div {
+   margin-bottom: 0.5em;
+}
+
+span {
+    display: inline-block;
+    width: 4em;
+    margin-right: 3em;
+    padding: 2px;
+}
+
+button {
+    cursor: pointer;
+}
+
+.button-save {
+    margin-left: 2em;
+}
+
+.button-delete {
+    border-style: solid;
+    background-color: azure ;
+}
+
+#createForm {
+    width: 33em;
+    padding-left: 1em;
+    float: right;
+    padding-top: 1em;
+}
+
+#addButton {
+    border-style: solid;
+    background-color: azure ;
+    width: 4em;
+    margin-left: 0;
+    margin-bottom: 1em;
+}

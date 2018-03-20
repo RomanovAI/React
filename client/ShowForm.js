@@ -24,6 +24,18 @@ export default class ShowForm extends Component {
     show() {
         this.setState({
             showForm:!this.state.showForm
-        })
+        });
+            console.log(this);
+        fetch('http://localhost:3000/test')
+            .then(function(response) {
+                console.log(response);
+
+                return response.json();
+            })
+            .then(function(user) {
+                console.log(user.name);
+            })
+            .catch( console.log );
+
     }
 }

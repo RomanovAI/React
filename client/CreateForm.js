@@ -17,11 +17,15 @@ export default class CreateForm extends Component {
         const input = <input type="text" ref="text" placeholder="введи название" value={this.state.myValue} onChange={this.clickChange}/>;
         const buttonSave = <button className="button-save" onClick={this.saveValue}>save</button>;
         const buttonClear = <button id="clearButtonId" onClick={this.clearValue}>clear</button>;
+        const br = <br/>;
+        const textarea = <textarea></textarea>;
         return (
             <div id="createForm">
                 {input}
                 {buttonSave}
                 {buttonClear}
+                {br}
+                {textarea}
             </div>
         )
     }

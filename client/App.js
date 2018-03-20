@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import ShowForm from "./ShowForm";
 import moviesDb from "./db";
 import MoviesRender from "./MoviesRender";
+//import About from "./About";
 
 export default class App extends Component {
     constructor(props){
@@ -15,11 +16,14 @@ export default class App extends Component {
         this.getFilm = this.getFilm.bind(this);
     }
 
+
+
     render () {
         return (
             <div>
                 <ShowForm getFilm={this.getFilm}/>
                 <MoviesRender movies={this.state.arr} deleteFilm={this.deleteFilm}/>
+                {/*<About about={this.state.arr}/>*/}
             </div>
         )
     }

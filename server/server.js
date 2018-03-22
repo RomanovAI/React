@@ -39,7 +39,9 @@ app.get('/test', function (req, res) {
 
 
 app.post('/test', function (req, res) {
+    console.log("2");
   data = req.body;
+  console.log(data);
   res.send(data);
 });
 

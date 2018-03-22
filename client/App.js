@@ -1,21 +1,29 @@
 import React, {Component} from "react";
 import ShowForm from "./ShowForm";
-import moviesDb from "./db";
 import MoviesRender from "./MoviesRender";
-//import About from "./About";
+
+
 
 export default class App extends Component {
     constructor(props){
         super(props);
 
         this.state = {
-            arr: moviesDb
+            arr: []
         };
 
         this.deleteFilm = this.deleteFilm.bind(this);
         this.getFilm = this.getFilm.bind(this);
     }
 
+componentDidMount() {
+    fetch('http://localhost:3000/test')
+        .then(response => response.json())
+        .then((res) => {
+            this.setState({
+                arr:res.body})
+        })
+    }
 
 
     render () {
@@ -23,19 +31,30 @@ export default class App extends Component {
             <div>
                 <ShowForm getFilm={this.getFilm}/>
                 <MoviesRender movies={this.state.arr} deleteFilm={this.deleteFilm}/>
-                {/*<About about={this.state.arr}/>*/}
             </div>
         )
     }
 
-    deleteFilm(event){
+    deleteFilm(event) {
         let idFilm = +event.target.parentNode.id;
         let arrAfterDeleting = this.state.arr.filter((movie) =>
             movie.id !== idFilm);
-        this.setState({
-            arr: arrAfterDeleting
+        console.log(arrAfterDeleting);
+        fetch('http://localhost:3000/test', {
+            method: "post",
+            headers: {
+                "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+            },
+        body: 777
         })
+            .then(response => response.json())
+            .then(res =>
+            this.setState({
+                arr: res.body
+            }))
+            .catch(error => console.log(error))
     }
+
 
     getFilm(value) {
         let mov = [...this.state.arr];

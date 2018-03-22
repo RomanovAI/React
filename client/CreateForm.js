@@ -18,7 +18,7 @@ export default class CreateForm extends Component {
         const buttonSave = <button className="button-save" onClick={this.saveValue}>save</button>;
         const buttonClear = <button id="clearButtonId" onClick={this.clearValue}>clear</button>;
         const br = <br/>;
-        const textarea = <textarea></textarea>;
+        const textarea = <textarea/>;
         return (
             <div id="createForm">
                 {input}

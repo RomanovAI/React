@@ -40,19 +40,26 @@ componentDidMount() {
         let arrAfterDeleting = this.state.arr.filter((movie) =>
             movie.id !== idFilm);
         console.log(arrAfterDeleting);
+        let after = JSON.stringify(arrAfterDeleting);
+        console.log(after);
         fetch('http://localhost:3000/test', {
             method: "post",
             headers: {
                 "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
             },
-        body: 777
+            body:after
         })
-            .then(response => response.json())
-            .then(res =>
+            .then(response =>
+                response.json()
+            )
+            .then(res => {
+                JSON.parse(res);
+                console.log("res :",res);
             this.setState({
-                arr: res.body
-            }))
-            .catch(error => console.log(error))
+                arr: res
+            })})
+
+            .catch(error => console.error(error))
     }
 
 

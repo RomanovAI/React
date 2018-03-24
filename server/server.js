@@ -28,6 +28,7 @@ let data = [
     }
 ];
 
+console.log("массив на сервере", data);
 
 app.get('/test', function (req, res) {
     console.log("1");
@@ -40,8 +41,26 @@ app.get('/test', function (req, res) {
 
 app.post('/test', function (req, res) {
     console.log("2");
-  data = req.body;
-  console.log(data);
+  let dataReq = req.body;
+  console.log("до парсинга: ",dataReq);
+  for (let i in dataReq) {
+      JSON.parse(i);
+      console.log("после парсинга: ", i );
+      console.log("#1 - i.id: ",i.id);
+      console.log("data.length: ",data.length);
+      data.splice(0,data.length,i);
+ /*     let newArr = data.filter(item =>{
+          console.log("item.id :",item.id);
+          console.log("#2 - i.id: ",i.id);
+          item.id ===i.id
+      });
+      console.log("массив после фильтра: ", newArr);*/
+      res.status(200).type('json').json({
+          success: true,
+          body: data
+      });
+      console.log("новый массив: ", data );
+  }
   res.send(data);
 });
 

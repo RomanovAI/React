@@ -1,7 +1,7 @@
 import React, {Component} from "react";
-import ShowForm from "./ShowForm";
+import {Route, Switch, HashRouter} from "react-router-dom";
 import MoviesRender from "./MoviesRender";
-
+import About from "./About";
 
 
 export default class App extends Component {
@@ -16,22 +16,29 @@ export default class App extends Component {
         this.getFilm = this.getFilm.bind(this);
     }
 
-componentDidMount() {
-    fetch('http://localhost:3000/test')
-        .then(response => response.json())
-        .then((res) => {
-            this.setState({
-                arr:res.body})
-        })
+    componentDidMount() {
+         fetch('http://localhost:3000/test')
+             .then(response =>
+               response.json()
+             )
+             .then((res) =>
+               this.setState({
+                arr:res.body
+                })
+              )
+            .catch(error => console.error(error))
     }
 
-
     render () {
+        const wrapperMoviesRender = ()=> <MoviesRender movies={this.state.arr} deleteFilm={this.deleteFilm} getFilm={this.getFilm}/>;
+        const wrapperAbout = () => <About movies={this.state.arr}/>;
         return (
-            <div>
-                <ShowForm getFilm={this.getFilm}/>
-                <MoviesRender movies={this.state.arr} deleteFilm={this.deleteFilm}/>
-            </div>
+            <HashRouter>
+             <Switch>
+                <Route exact path="/" component={wrapperMoviesRender} />
+                <Route path="/about" component={wrapperAbout} />
+             </Switch>
+            </HashRouter>
         )
     }
 
@@ -39,35 +46,43 @@ componentDidMount() {
         let idFilm = +event.target.parentNode.id;
         let arrAfterDeleting = this.state.arr.filter((movie) =>
             movie.id !== idFilm);
-        console.log(arrAfterDeleting);
         let after = JSON.stringify(arrAfterDeleting);
-        console.log(after);
         fetch('http://localhost:3000/test', {
             method: "post",
             headers: {
-                "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+                "Content-type": "application/json; charset=UTF-8"
             },
-            body:after
-        })
-            .then(response =>
+            body: after
+            })
+            .then( response =>
                 response.json()
             )
-            .then(res => {
-                JSON.parse(res);
-                console.log("res :",res);
+            .then( res => {
             this.setState({
-                arr: res
-            })})
-
+                arr: res.body
+                })
+            })
             .catch(error => console.error(error))
     }
 
-
     getFilm(value) {
-        let mov = [...this.state.arr];
-        mov.push(value);
-        this.setState({
-            arr: mov
-        })
+        let arrFilms = [...this.state.arr];
+        arrFilms.push(value);
+        let after = JSON.stringify(arrFilms);
+        fetch('http://localhost:3000/test', {
+            method: "post",
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            },
+            body: after
+            })
+            .then(response =>
+                    response.json()
+            )
+            .then(res =>
+                this.setState({
+                    arr: res.body
+                })
+            )
     }
 };

@@ -1,18 +1,15 @@
-import React, {Component} from "react";
+import React from "react";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
 
-
-export default class About extends Component {
-    constructor(props){
-        super(props);
-    }
-
-    render() {
+export function About (props) {
         let url = document.location.href;
-        let str = +url.slice(30);
-        const {movies} = this.props;
-        let aboutToRender = movies.filter((movie) =>  (movie.id === str));
-        let renderDiscription = aboutToRender.map(( movie ) => {
+        let findStrAbout= url.indexOf("about/");
+        let str = url.substr(findStrAbout+6);
+        let aboutToRender = props.films.filter( movie =>
+              (movie.id === str)
+        );
+        let renderDescription = aboutToRender.map(( movie ) => {
             const span = <p>{movie.description}</p>;
             return (
                 <div id={movie.id} key={movie.id}>
@@ -22,9 +19,15 @@ export default class About extends Component {
         const buttonBack = <Link to={"/"} ><button>Назад</button></Link>;
         return (
         <div>
-            {renderDiscription}
+            {renderDescription}
             {buttonBack}
         </div>
         )
-    }
 }
+
+
+export default connect (
+    state => ({
+    films:state
+})
+)(About)

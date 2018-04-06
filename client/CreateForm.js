@@ -1,25 +1,22 @@
 import React, {Component} from "react";
+import {connect} from "react-redux";
+import {actionAddFilm} from "./actions";
+import uuidv1 from "uuid";
 
-
-export default class CreateForm extends Component {
+export class CreateForm extends Component {
     constructor(props) {
         super(props);
         this.state={
             myValue: "",
             descriptionFilm: ""
         };
-
-        this.saveValue=this.saveValue.bind(this);
-        this.clearValue=this.clearValue.bind(this);
-        this.clickChange=this.clickChange.bind(this);
-        this.clickChangeTo=this.clickChangeTo.bind(this);
     }
 
     render() {
-        const input = <input type="text" ref="text" placeholder="введи название" value={this.state.myValue} onChange={this.clickChange}/>;
-        const buttonSave = <button className="button-save" onClick={this.saveValue}>Сохранить</button>;
-        const buttonClear = <button id="clearButtonId" onClick={this.clearValue}>Очистить</button>;
-        const textarea = <textarea ref="text" value={this.state.descriptionFilm} onChange={this.clickChangeTo}/>;
+        const input = <input type="text" ref="text" placeholder="введи название" value={this.state.myValue} onChange={this.clickChange.bind(this)}/>;
+        const buttonSave = <button className="button-save" onClick={this.saveValue.bind(this)}>Сохранить</button>;
+        const buttonClear = <button id="clearButtonId" onClick={this.clearValue.bind(this)}>Очистить</button>;
+        const textarea = <textarea ref="text" value={this.state.descriptionFilm} onChange={this.clickChangeTo.bind(this)}/>;
         return (
             <div id="createForm">
                 {input}
@@ -32,13 +29,13 @@ export default class CreateForm extends Component {
     }
 
     saveValue() {
-        if (this.state.myValue !=="" && this.state.descriptionFilm !=="") {
+        if (this.state.myValue.length !== 0 && this.state.descriptionFilm.length !== 0) {
             const film = {
                 name: this.state.myValue,
-                id: Math.random(),
+                id: uuidv1(),
                 description: this.state.descriptionFilm
             };
-            this.props.getFilm(film);
+            this.props.addFilm(film);
             this.setState({
                 myValue: "",
                 descriptionFilm: ""
@@ -65,3 +62,14 @@ export default class CreateForm extends Component {
         })
     }
 }
+
+export default connect(
+    state => ({
+        films:state
+    }),
+    dispatch => ({
+        addFilm: (arr) =>dispatch(actionAddFilm(arr))
+    })
+)(CreateForm)
+
+

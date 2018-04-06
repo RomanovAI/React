@@ -1,7 +1,7 @@
 let path = require('path');
 
 module.exports = {
-    entry: './DOM.js',
+    entry: './Entry.js',
     output: {
         filename: 'script.js',
         path: path.resolve(__dirname, "./dist")
@@ -22,7 +22,11 @@ module.exports = {
                         presets: ["stage-0", "env", "react", "es2015"]
                     },
                 },
-            }
+            },
+                {
+                    test: /\.css$/,
+                    use: [ 'style-loader', 'css-loader' ]
+                }
         ]
-    },
+    }
 };

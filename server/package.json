@@ -4,6 +4,7 @@
   "author": "",
   "dependencies": {
     "body-parser": "^1.18.2",
-    "express": "3.x.x"
+    "express": "3.x.x",
+    "uuid": "^3.2.1"
   }
 }

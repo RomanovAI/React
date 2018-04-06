@@ -1,0 +1,8 @@
+
+
+const DELETE_FILM = "DELETE_FILM",
+      ADD_FILM = "ADD_FILM",
+      FETCH_FILMS = "FETCH_FILMS";
+
+
+export  {DELETE_FILM, ADD_FILM, FETCH_FILMS};

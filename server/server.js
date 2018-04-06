@@ -1,6 +1,7 @@
 ﻿const express = require('express');
 const bodyParser = require("body-parser");
 const app = express();
+const uuidv1 = require('uuid/v1');
 
 
 
@@ -19,7 +20,7 @@ function ignoreFavicon(req, res, next) {
 let data = [
     {
         name:"Остров",
-        id:1,
+        id:uuidv1(),
         description: "Во время Великой Отечественной войны немцы захватывают угольную баржу где-то у берегов Белого моря. " +
         "Матрос Анатолий под угрозой смерти предает и убивает своего командира, капитана корабля Тихона. " +
         "Несмотря на это, немцы взрывают баржу и оставляют Анатолия умирать в море. Выжившего Анатолия мы " +
@@ -28,7 +29,7 @@ let data = [
     },
     {
         name:"Начало",
-        id:2,
+        id:uuidv1(),
         description: "Сюжет фильма Начало развивается в будущем, когда люди научились распознавать сны" +
         " и использовать их в своих целях. Доминик Кобб, профессиональный вор, но Кобб необычный вор," +
         " его специализация - кража мыслей и идей человека когда последний спит. Доминик виртуозно ворует" +
@@ -42,13 +43,14 @@ let data = [
 
 
 app.get('/test', function (req, res) {
+    console.log("1");
     res.status(200).type('json').json({
         body: data
     })
 });
 
 app.post('/test', function (req, res) {
-  let data = req.body;
+   data = req.body;
     res.status(200).type('json').json({
         body: data
     });

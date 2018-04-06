@@ -9,15 +9,13 @@ export default class ShowForm extends Component {
         this.state = {
             showForm: false
         };
-
-        this.show=this.show.bind(this);
     }
 
     render() {
         return (
             <div>
-                <button id="addButton" onClick={this.show}>Добавить</button>
-                {this.state.showForm && <CreateForm getFilm={this.props.getFilm}/>}
+                <button id="addButton" onClick={this.show.bind(this)}>Добавить</button>
+                {this.state.showForm && <CreateForm />}
             </div>
         )
     }
